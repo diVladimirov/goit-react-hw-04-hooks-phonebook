@@ -20,14 +20,25 @@ const FormError = ({ name }) => {
 
 export class FormView extends Component {
   state = {
-    contacts: [],
+    contacts: [
+      { id: 'id-1', name: 'Rosie Simpson', number: '459-12-56' },
+      { id: 'id-2', name: 'Hermione Kline', number: '443-89-12' },
+      { id: 'id-3', name: 'Eden Clements', number: '645-17-79' },
+      { id: 'id-4', name: 'Annie Copeland', number: '227-91-26' },
+    ],
+    filter: '',
     name: '',
+    number: '',
   };
 
   handleSubmit = ({ name, number }, { resetForm }) => {
     const contactObj = { id: nanoid(4), name, number };
     this.setState({ contacts: [contactObj, ...this.state.contacts] });
     resetForm();
+  };
+
+  inputChange = filter => {
+    console.log(filter.target.value);
   };
 
   render() {
@@ -48,13 +59,23 @@ export class FormView extends Component {
             </div>
             <div>
               <label htmlFor="number">Number</label>
-              <Field type="text" name="number" placeholder="xxx-xx-xx" />
+              <Field type="tel" name="number" placeholder="xxx-xx-xx" />
               <FormError name="number" />
             </div>
             <button type="submit">Add contacts</button>
           </Form>
         </Formik>
         <h2>Contacts</h2>
+        <div>
+          <label>Find contact by name</label>
+          <input
+            autoComplete="off"
+            type="text"
+            name="name"
+            placeholder="Search name"
+            onChange={this.inputChange}
+          ></input>
+        </div>
         <ul>
           {contacts.map(el => (
             <li key={el.id}>

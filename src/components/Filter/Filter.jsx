@@ -1,11 +1,20 @@
 import PropTypes from 'prop-types';
+import { FilterWrapper, FilterLabel, FilterInput } from './Filter.styled';
 
 export default function Filter({ filter, onChange }) {
   return (
-    <label>
-      Find contacts by name
-      <input type="text" name="filter" value={filter} onChange={onChange} />
-    </label>
+    <FilterWrapper>
+      <FilterLabel htmlFor="filter">Find contacts by name</FilterLabel>
+      <div>
+        <FilterInput
+          type="text"
+          name="filter"
+          value={filter}
+          onChange={onChange}
+          placeholder="Input name to find"
+        />
+      </div>
+    </FilterWrapper>
   );
 }
 

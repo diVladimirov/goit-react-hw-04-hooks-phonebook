@@ -5,6 +5,9 @@ import ContactsForm from './Form/ContactsForm';
 import ContactsList from './List/ContactsList';
 import Filter from './Filter/Filter';
 
+import { Container, FisrtTitle, SecondTitle } from './App.styled';
+import GlobalStyle from '../constants/GlobalStyle';
+
 class App extends Component {
   state = {
     contacts: [
@@ -49,14 +52,15 @@ class App extends Component {
     const { filter } = this.state;
 
     return (
-      <div>
-        <h1>Phonebook</h1>
+      <Container>
+        <GlobalStyle />
+        <FisrtTitle>Phonebook</FisrtTitle>
         <ContactsForm onSubmit={this.onFormSubmit} />
 
-        <h2>Contacts</h2>
+        <SecondTitle>Contacts</SecondTitle>
         <Filter filter={filter} onChange={this.onChangeFilter} />
         <ContactsList contacts={this.registerLogic()} onDeleteContact={this.onDeleteContact} />
-      </div>
+      </Container>
     );
   }
 }

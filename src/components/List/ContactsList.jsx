@@ -1,17 +1,18 @@
 import PropTypes from 'prop-types';
-import { ContactsListWrapper, ContactsListLi, ContactsListButton } from './ContactsList.styled';
+import { ContactsListWrapper } from './ContactsList.styled';
+import ContactListLi from '../Listitem/ContactListItem';
 
 const ContactsList = ({ contacts, onDeleteContact }) => (
   <ContactsListWrapper>
     <ul>
-      {contacts.map(contact => (
-        <ContactsListLi key={contact.id}>
-          <span>{contact.name}:</span>
-          <span> {contact.number}</span>
-          <ContactsListButton onClick={() => onDeleteContact(contact.id)}>
-            Delete
-          </ContactsListButton>
-        </ContactsListLi>
+      {contacts.map(({ id, name, number }) => (
+        <ContactListLi
+          key={id}
+          id={id}
+          name={name}
+          number={number}
+          onDeleteContact={onDeleteContact}
+        />
       ))}
     </ul>
   </ContactsListWrapper>
@@ -20,6 +21,6 @@ const ContactsList = ({ contacts, onDeleteContact }) => (
 export default ContactsList;
 
 ContactsList.propTypes = {
-  contacts: PropTypes.array.isRequired,
-  onDeleteContact: PropTypes.func.isRequired,
+  contacts: PropTypes.arrayOf(PropTypes.object).isRequired,
+  onDeleteContact: PropTypes.func,
 };
